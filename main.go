@@ -59,18 +59,21 @@ func getSkyline(buildings [][]int) [][]int {
 			L = buildings[pt.index][1]
 		}
 
-		cur := find(bit, mp[L]+1)
-		if cur != prevHeight {
+		// Height is found in BIT
+		currHeight := find(bit, mp[L]+1)
+		if currHeight != prevHeight {
 			if len(ret) > 0 {
 				if ret[len(ret)-1][0] == L {
-					ret[len(ret)-1][1] = max(ret[len(ret)-1][1], cur)
+					ret[len(ret)-1][1] = max(ret[len(ret)-1][1], currHeight)
 				} else {
-					ret = append(ret, []int{L, cur})
+					// // [[x-axis, y-axis], [x-axis, y-axis]
+					ret = append(ret, []int{L, currHeight})
 				}
 			} else {
-				ret = append(ret, []int{L, cur})
+				// // [[x-axis, y-axis], [x-axis, y-axis]
+				ret = append(ret, []int{L, currHeight})
 			}
-			prevHeight = cur
+			prevHeight = currHeight
 		}
 	}
 
